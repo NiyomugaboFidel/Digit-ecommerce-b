@@ -1,7 +1,10 @@
 const Product  = require('../models/productModel');
 const asyncHandler = require('express-async-handler');
 const slugify = require('slugify');
+<<<<<<< HEAD
 const { validateMongoDbId } = require('../utils/validateMongodbid');
+=======
+>>>>>>> 0daee0d (fist commit of backend ecommerce application website)
 
 // create a product
 const createProduct = asyncHandler(async(req, res)=>{
@@ -19,7 +22,10 @@ const createProduct = asyncHandler(async(req, res)=>{
 
 const updateProduct = asyncHandler(async(req, res)=>{
     const id = req.params;
+<<<<<<< HEAD
     validateMongoDbId(id);
+=======
+>>>>>>> 0daee0d (fist commit of backend ecommerce application website)
     console.log(id)
     try {
         if(req.body.title){
@@ -37,7 +43,10 @@ const updateProduct = asyncHandler(async(req, res)=>{
 // delete a product
 const deleteProduct = asyncHandler(async(req, res)=>{
     const id = req.params;
+<<<<<<< HEAD
     validateMongoDbId(id);
+=======
+>>>>>>> 0daee0d (fist commit of backend ecommerce application website)
     try {
       
         const deletedProduct = await Product.findByIdAndDelete(id.id);
@@ -50,7 +59,10 @@ const deleteProduct = asyncHandler(async(req, res)=>{
 // get a product
 const getaProduct = asyncHandler(async(req, res)=>{
     const {id} = req.params;
+<<<<<<< HEAD
     validateMongoDbId(id);
+=======
+>>>>>>> 0daee0d (fist commit of backend ecommerce application website)
     try {
         const findProduct = await Product.findById(id);
         res.json(findProduct);

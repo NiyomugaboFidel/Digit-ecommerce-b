@@ -1,4 +1,5 @@
 const router = require('express').Router();
+<<<<<<< HEAD
 const {
     createProduct,
     getaProduct,
@@ -6,6 +7,9 @@ const {
     updateProduct,
     deleteProduct
      } = require('../controller/productCtrl');
+=======
+const { createProduct, getaProduct, getAllProduct, updateProduct, deleteProduct } = require('../controller/productCtrl');
+>>>>>>> 0daee0d (fist commit of backend ecommerce application website)
 const { isAdmin, authMiddleware } = require('../middlewares/authMiddleware');
 
 router.post('/',authMiddleware ,isAdmin,createProduct);
