@@ -72,7 +72,7 @@ const handleRefreshToken = asyncHandler(async(req, res)=>{
     if(err || user?.id !== decoded.id ){
         throw new Error('There is something wrong with refresh token');
     }
-    const accessToken = generateToken(user?.is);
+    const accessToken = generateToken(user?.id);
     res.json({accessToken})
   });
 });

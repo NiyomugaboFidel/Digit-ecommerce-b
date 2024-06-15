@@ -1,19 +1,35 @@
 const router = require('express').Router();
-<<<<<<< HEAD
+
 const {
     createProduct,
     getaProduct,
     getAllProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    addTowishilist,
+    rating,
+    uploadImages
      } = require('../controller/productCtrl');
-=======
-const { createProduct, getaProduct, getAllProduct, updateProduct, deleteProduct } = require('../controller/productCtrl');
->>>>>>> 0daee0d (fist commit of backend ecommerce application website)
+
+
 const { isAdmin, authMiddleware } = require('../middlewares/authMiddleware');
+const { uploadPhoto, productImageResize } = require('../middlewares/uploadImages');
 
 router.post('/',authMiddleware ,isAdmin,createProduct);
+
+router.put('/upload/:id',
+authMiddleware, 
+isAdmin,
+uploadPhoto.array('images', 10),
+productImageResize,
+uploadImages
+);
+
+router.put('/rating', authMiddleware, rating);
 router.get('/:id', getaProduct);
+router.put('/wishlist', authMiddleware,addTowishilist);
+
+
 router.put('/:id',authMiddleware ,isAdmin,updateProduct);
 router.delete('/:id',authMiddleware, isAdmin,deleteProduct);
 router.get('/', getAllProduct);

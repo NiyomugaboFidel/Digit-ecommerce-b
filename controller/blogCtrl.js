@@ -1,8 +1,10 @@
 const Blog = require('../models/blogModel');
-<<<<<<< HEAD
 const User = require('../models/userModel');
 const asyncHandler =require('express-async-handler');
 const { validateMongoDbId } = require('../utils/validateMongodbid');
+const cloudinaryUploadImg = require('../utils/cloudinary');
+const fs = require('fs');
+
 
 // create blog
 const createBlog = asyncHandler(async(req, res)=>{
@@ -199,6 +201,38 @@ const dislikeBlog = asyncHandler(async(req, res)=>{
          }
  });
 
+ 
+// upload image of product
+const uploadImages = asyncHandler(async(req, res)=>{
+    const {id} = req.params;
+    validateMongoDbId(id);
+     try {
+       const uploader = (path) => cloudinaryUploadImg(path, 'images')
+       const urls =[];
+       const files = req.files;
+       for(const file of files){
+           const {path} = file;
+           console.log(path)
+           const newpath = await uploader(path);
+           console.log({newpath})
+           urls.push(newpath);
+         fs.unlinkSync(path);
+
+       }
+   
+       const findblog = await Blog.findByIdAndUpdate(id,{
+           images:urls.map((file)=> {
+               return file;
+           }),
+       },{
+           new:true,
+       });
+       res.json(findblog);
+   } catch (error) {
+       throw new Error(error);
+     }
+   });
+
 module.exports = {
     createBlog,
     updateBlog,
@@ -207,6 +241,5 @@ module.exports = {
     deleteBlog, 
     likeBlog,
     dislikeBlog,
+    uploadImages
 };
-=======
->>>>>>> 0daee0d (fist commit of backend ecommerce application website)
